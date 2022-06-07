@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { View, StyleSheet, TextInput, } from 'react-native'
-import { generalSizes, lightColors } from '../globalStyles/globalStyles';
+import { View, StyleSheet, TextInput, useColorScheme } from 'react-native'
+import { darkThemeColor, generalSizes, lightColors } from '../globalStyles/globalStyles';
 import CustomText from './CustomText';
 
 
@@ -13,7 +13,7 @@ const CustomTextInput = ({
     onBlur = () => { },
     disabled = false, showPass, setShowPass, placeholderTextColor = lightColors.primary, ...rest
 }) => {
-
+    const theme = useColorScheme()
     return (
         <View style={[{ marginTop: generalSizes.size_lg }, customStyle]} {...rest}>
             {/* <CustomText
@@ -26,7 +26,7 @@ const CustomTextInput = ({
                     onBlur={onBlur}
                     editable={!disabled}
                     placeholder={placeholder}
-                    placeholderTextColor={placeholderTextColor}
+                    placeholderTextColor={theme === "light" ? lightColors.secondary : darkThemeColor.primary}
                     autoCapitalize={'none'}
                     value={value}
                     secureTextEntry={password && !showPass}
@@ -36,7 +36,7 @@ const CustomTextInput = ({
                     onSubmitEditing={onSubmitEditing}
                     blurOnSubmit={blurOnSubmit}
                     autoFocus={autoFocus}
-                    style={[styles.container,]}
+                    style={[styles.container, { color: theme === "light" ? lightColors.secondary : darkThemeColor.primary }]}
                 />
                 {/* {password ? <View style={{
                     borderBottomColor: colors.input_border,

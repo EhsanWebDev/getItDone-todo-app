@@ -7,15 +7,15 @@ import { darkThemeColor, lightColors } from '../globalStyles/globalStyles';
 
 const CustomText = ({
     children, bold, size = 16,
-    color = lightColors.primary, title = "", extraStyles = {}, ...rest
+    color = lightColors.primary, title = "", extraStyles = {}, invertedColor, ...rest
 }) => {
     const theme = useColorScheme()
     return (
         <Text style={[styles.container,
         {
             fontWeight: bold ? "bold" : 'normal', fontSize: size,
-            color
-            // color: theme === "light" ? lightColors[color] : darkThemeColor.primary,
+            // color
+            color: theme === "light" ? color : invertedColor ? invertedColor : darkThemeColor.primary,
 
         }, { ...extraStyles }
         ]}{...rest} >
