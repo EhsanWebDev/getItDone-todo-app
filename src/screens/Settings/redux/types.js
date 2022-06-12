@@ -1,0 +1,3 @@
+export const SETTING_TYPES = {
+    CHANGE_THEME_MODE: " CHANGE_THEME_MODE"
+}

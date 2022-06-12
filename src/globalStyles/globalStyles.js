@@ -12,7 +12,10 @@ export const lightColors = {
     light: "#686de0",
     muted: "#7f8c8d",
     bg_light: "#F2F2F2",
-    bg_pink: "#FAD4D4"
+    bg_pink: "#FAD4D4",
+    lightGray: "#DDDDDD",
+    mutedGray: "#B2B1B9",
+    solidGray: "#564A4A"
 }
 
 export const darkThemeColor = {

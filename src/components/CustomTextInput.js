@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { View, StyleSheet, TextInput, useColorScheme } from 'react-native'
+import { useSelector } from 'react-redux';
 import { darkThemeColor, generalSizes, lightColors } from '../globalStyles/globalStyles';
 import CustomText from './CustomText';
 
@@ -13,7 +14,9 @@ const CustomTextInput = ({
     onBlur = () => { },
     disabled = false, showPass, setShowPass, placeholderTextColor = lightColors.primary, ...rest
 }) => {
-    const theme = useColorScheme()
+    const state = useSelector(state => state)
+    const { theme: reduxTheme, themeSource } = state.settings || {}
+    const theme = reduxTheme
     return (
         <View style={[{ marginTop: generalSizes.size_lg }, customStyle]} {...rest}>
             {/* <CustomText
@@ -65,9 +68,9 @@ const CustomTextInput = ({
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: generalSizes.size_md,
+        height: 40,
         borderColor: lightColors.muted,
-        borderWidth: 0.3,
+        borderWidth: 1,
         color: lightColors.secondary,
         fontSize: 12,
         paddingHorizontal: generalSizes.size_md,

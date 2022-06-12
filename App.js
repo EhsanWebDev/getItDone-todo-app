@@ -1,26 +1,22 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  useColorScheme
-} from 'react-native';
-import { darkThemeColor, lightColors } from './src/globalStyles/globalStyles';
-import Home from './src/screens/Home/Home';
+import { Provider, useSelector } from 'react-redux';
+import RootNav from './src/navigation/RootNav';
+import { store } from './src/redux/store';
+import { useColorScheme } from "react-native";
+
 
 const App = () => {
-  const theme = useColorScheme()
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme === "light" ? lightColors.bg_light : darkThemeColor.bg_dark }}>
-      <Home />
-    </SafeAreaView>
+    <Provider store={store}>
+      <NavigationContainer>
+        <RootNav />
+      </NavigationContainer>
+    </Provider>
+
+
+
   );
 };
 

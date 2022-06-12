@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
-import { SafeAreaView, FlatList } from 'react-native'
+import { SafeAreaView, FlatList, useColorScheme, StatusBar } from 'react-native'
+import { useSelector } from 'react-redux';
 import Avatar from '../../components/Avatar';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
 import CustomText from '../../components/CustomText';
 import CustomTextInput from '../../components/CustomTextInput';
-import { generalSizes, lightColors } from '../../globalStyles/globalStyles';
+import SeeAllHeader from '../../components/SeeAllHeader/SeeAllHeader';
+import { darkThemeColor, generalSizes, lightColors } from '../../globalStyles/globalStyles';
 import TaskItem from './components/TaskItem';
 
-const Home = () => {
+const Home = ({ navigation }) => {
     const [items, setItems] = useState([
         { id: 1, title: "Take a nap now.", isCompleted: false, priority: "low" },
         { id: 2, title: "Learn something new.", isCompleted: false, priority: "medium" },
         { id: 3, title: "Go for a walk.", isCompleted: false, priority: "high" },
     ])
+    const state = useSelector(state => state)
+    const { theme: reduxTheme, themeSource } = state.settings || {}
+    const theme = reduxTheme
 
     const handleItemClick = (item) => {
         const updatedList = (items || []).map(itm => {
@@ -28,8 +33,11 @@ const Home = () => {
         })
         setItems(updatedList)
     }
+
+    console.log({ state })
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{ flex: 1, backgroundColor: theme === "light" ? lightColors.bg_light : darkThemeColor.bg_dark }}>
+            <StatusBar barStyle={theme === "light" ? "dark-content" : "light-content"} />
             <Container rowSb mt={generalSizes.size_lg}>
                 <Container withoutGeneralMargin>
                     <CustomText title='Hello, Ehsan Ahmad' bold size={20} />
@@ -44,11 +52,10 @@ const Home = () => {
 
             <Container row mt={generalSizes.size_lg}>
                 <Button pill title="Today's" boldTitle active />
-                <Button pill bg='transparent' title="Calender" ml={generalSizes.size_lg} boldTitle />
-                <Button pill bg='transparent' title="Profile" ml={generalSizes.size_lg} boldTitle />
+                <Button pill bg='transparent' title="Calender" ml={generalSizes.size_lg} boldTitle onPress={() => navigation.navigate("AddTaskStack")} />
             </Container>
             <Container mt={generalSizes.size_lg}>
-                <CustomText title='Pending' bold size={20} />
+                <SeeAllHeader mainTitle='Pending' subTitle='6' />
 
                 <FlatList
                     data={items}
